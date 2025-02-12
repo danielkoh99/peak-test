@@ -1,0 +1,36 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# Testing
+coverage/
+
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Vercel
+.vercel/
+
+# Typescript build files
+*.tsbuildinfo
+
+# Miscellaneous
+.vscode/
+
+# Ignore generated static files
+public/static
