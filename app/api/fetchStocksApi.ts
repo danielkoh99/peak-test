@@ -6,9 +6,9 @@ export const fetchTickerSearchResults = async<T>(symbol: string) => {
     })
     return response.response?.data as T
 }
-export const fetchHistoricData = async (symbol: string) => {
+export const fetchHistoricData = async <T>(symbol: string) => {
     const response = await apiRequest({
         url: `/query?function=HISTORICAL_QUOTE&keywords=${symbol}&apikey=${process.env.NEXT_PUBLIC_API_KEY}`
     })
-    return response
+    return response.response?.data as T
 }
