@@ -14,8 +14,6 @@ body {
     @apply bg-background text-foreground;
   }
 }
-
-
 @layer base {
   :root {
     --background: 0 0% 100%;
