@@ -1,5 +1,6 @@
 interface SearchTickerRes {
     bestMatches?: Ticker[]
+    "Information"?: string
 }
 interface Ticker {
     "1. symbol": string,
@@ -14,6 +15,7 @@ interface Ticker {
 }
 interface StockDetailsRes {
     "Global Quote": StockDetails
+    "Information"?: string
 }
 interface StockDetails {
     "01. symbol": string,
@@ -45,6 +47,7 @@ interface StockTimeSeriesEntry {
 interface StockData {
     "Meta Data": StockMetaData;
     "Monthly Time Series": Record<string, StockTimeSeriesEntry>;
+    "Information"?: string
 };
 
 export type { SearchTickerRes, Ticker, StockDetails, StockData, StockDetailsRes }
