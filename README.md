@@ -6,6 +6,9 @@
 - [TypeScript](https://www.typescriptlang.org/) – Strongly typed JavaScript
 - [Tailwind CSS](https://tailwindcss.com/) – Utility-first CSS framework
 - [ESLint](https://eslint.org/) – Linting for code consistency
+- [ShadCn](https://eslint.org/) – Component library
+- [Tanstack Query](https://tanstack.com/query/latest) – Data fetching
+
 
 ## 🛠️ Setup & Installation
 
