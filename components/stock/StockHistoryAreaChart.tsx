@@ -50,7 +50,6 @@ const chartConfig = {
 
 export default function Chart({ data }: { data: StockData }) {
     const convertedChartData = useMemo(() => convertToChartData(data["Monthly Time Series"]), [data])
-    console.log(convertedChartData)
 
     return (
         <div className="flex flex-1 lg:w-2/3 w-full h-full ">
