@@ -1,3 +1,4 @@
+"use client";
 import { Ticker } from "@/app/types/types";
 import { StarIcon } from "lucide-react";
 import { useEffect } from "react";
@@ -7,7 +8,7 @@ export default function SingleTickerItem({ match, savedItems, setSavedItems }: {
     useEffect(() => {
         const storedItems = JSON.parse(localStorage.getItem("savedItems") || "[]");
         setSavedItems(storedItems);
-    }, []);
+    }, [setSavedItems]);
 
     const isSaved = savedItems.some(item => item["1. symbol"] === match["1. symbol"]);
     const saveItem = () => {

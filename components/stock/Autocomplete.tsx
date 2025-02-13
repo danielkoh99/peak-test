@@ -1,3 +1,4 @@
+"use client"
 import { SearchTickerRes, Ticker } from "@/app/types/types";
 import { Input } from "../ui/input";
 import { useEffect, useState } from "react";
