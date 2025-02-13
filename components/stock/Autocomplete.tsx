@@ -22,22 +22,31 @@ export function Autocomplete<T>({
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for symbols"
-                className="w-full p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 shadow-sm 
+               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+               transition-all duration-200"
             />
+
             {!isLoading && !error && searchQuery.length > 2 && (
-                <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-md max-h-60 overflow-y-auto">
+                <div className="absolute left-0 right-0 z-10 mt-2 w-full bg-white border border-gray-200 
+                    rounded-lg shadow-lg max-h-60 overflow-y-auto transition-all duration-200">
+
                     {isLoading && (
-                        <div className="absolute z-10 w-full mt-1 text-gray-500">Loading...</div>
+                        <div className="p-3 text-gray-500 text-center">Loading...</div>
                     )}
+
                     {error && (
-                        <div className="absolute z-10 w-full mt-1 text-red-500">Error fetching results</div>
+                        <div className="p-3 text-red-500 text-center">Error fetching results</div>
                     )}
+
                     {data?.map((match: Ticker) => (
-                        <AutocompleteItem key={match["1. symbol"]} match={match}></AutocompleteItem>
+                        <AutocompleteItem
+                            key={match["1. symbol"]}
+                            match={match}
+                        />
                     ))}
                 </div>
             )}
-
         </div>
     )
 }

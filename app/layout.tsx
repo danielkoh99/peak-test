@@ -19,11 +19,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </div>
           </header>
 
-          <main className="flex-1 px-6 py-8">{children}</main>
-
-          <footer className="border-t bg-card py-4 text-center text-sm text-muted-foreground">
-            {new Date().getFullYear()}
-          </footer>
+          <main className="flex flex-1 h-full px-6 py-8">{children}</main>
 
         </body>
       </html>
