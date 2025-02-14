@@ -61,6 +61,8 @@ export default function StockList({ data }: { data: SearchTickerRes | undefined 
                             <Link href={`/stock/${stock["1. symbol"]}`} passHref className="flex flex-col gap-2 h-full">
                                 <h3 className="font-semibold">{stock["1. symbol"]}</h3>
                                 <p className="text-sm text-gray-600 text-center">{stock["2. name"]}</p>
+                                <p className="text-sm text-gray-600 text-center">{stock["3. type"]}</p>
+                                <p className="text-sm text-gray-600 text-center">{stock["4. region"]}</p>
                             </Link>
                             <SaveItemButton item={stock} />
                         </div>
