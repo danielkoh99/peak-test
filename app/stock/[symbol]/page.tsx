@@ -36,9 +36,7 @@ export default async function SymbolDetailsPage(props: { params: ParamsType }) {
                         No symbol found
                     </div>
                 ) :
-
                     <StockDetailsView data={symbolDetails["Global Quote"]} />
-
                 }
                 {historicalData && !historicalData["Error Message"] && !historicalData["Information"] && (
                     <StockHistoryAreaChart data={historicalData} />

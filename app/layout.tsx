@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <QueryProvider>
         <html lang="en">
           <body className={cn("flex flex-col min-h-screen bg-background text-foreground")}>
-            <header className="sticky top-0 w-full border-b bg-card/50 backdrop-blur-md">
+            <header className="sticky top-0 w-full border-b bg-card/50 backdrop-blur-md z-20">
               <div className="container mx-auto px-6 py-4 flex flex-col md:flex-row gap-4 items-center ">
                 <h1 className="text-xl font-bold">Peak test</h1>
                 <Button variant="outline" className="w-full md:w-auto">
@@ -36,7 +36,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               </div>
             </header>
 
-            <main className="flex flex-1 h-full px-6 py-8">{children}</main>
+            <main className="flex flex-col flex-1 overflow-hidden px-6 py-8">{children}</main>
 
           </body>
         </html>

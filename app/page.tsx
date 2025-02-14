@@ -19,9 +19,9 @@ export default function Home() {
     enabled: !!debouncedSearchQuery && debouncedSearchQuery.length > 2,
   });
   return (
-    <div className="flex flex-col flex-1 items-center px-4 sm:px-6 md:px-8 gap-10">
+    <div className="flex flex-col h-screen items-center px-4 sm:px-6 md:px-8 gap-6">
+      <p className="text-lg font-semibold">Search for a stock</p>
 
-      <p className="text-lg font-semibold"> Search for a stock</p>
       <Autocomplete
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
@@ -29,6 +29,7 @@ export default function Home() {
         error={error}
         isLoading={isLoading}
       />
+
       <PrevSearchList data={data} />
     </div>
   );
