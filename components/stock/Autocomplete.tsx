@@ -61,7 +61,7 @@ export function Autocomplete({
             {showResults && !isLoading && !error && searchQuery.length > 2 && (
                 <div onBlur={() => setShowResults(false)} className="absolute left-0 right-0 z-10 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-96 overflow-y-auto transition-all duration-200 no-scrollbar">
                     {data?.Information && (
-                        <div className="p-3 text-gray-500 text-center">{data?.Information}</div>
+                        <div className="p-3 text-gray-500 text-center">Api limit reached</div>
                     )}
                     {isLoading && (
                         <div className="p-3 text-gray-500 text-center">Loading...</div>
