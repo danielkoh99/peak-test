@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 import "./globals.css";
-import { QueryProvider } from "@/components/QueryProvider";
 import { StarIcon } from "lucide-react";
 import Link from "next/link";
 import { SavedItemsProvider } from "./contexts/SavedItemContext";
+import { QueryProvider } from "./providers/QueryProvider";
 
 export const metadata: Metadata = {
   title: "Peak test Dani",

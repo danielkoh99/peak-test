@@ -58,7 +58,7 @@ export default function Chart({ data }: { data: StockData }) {
                     <div className="text-xl font-semibold flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
                         <CardTitle>
                             Historical prices for
-                            <span className="italic">{data["Meta Data"]["2. Symbol"]}
+                            <span className="italic ml-2">{data["Meta Data"]["2. Symbol"]}
                             </span>
                         </CardTitle>
                         <CardDescription>
