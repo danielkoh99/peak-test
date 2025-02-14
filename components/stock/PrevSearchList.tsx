@@ -5,7 +5,6 @@ import { useEffect } from "react";
 
 
 export default function StockList({ data, setDefaultPrevResults }: { data: SearchTickerRes | undefined, setDefaultPrevResults: React.Dispatch<SearchTickerRes | undefined> }) {
-    console.log(data)
     useEffect(() => {
         if (!data || data?.Information) {
             return

@@ -23,8 +23,16 @@ export default function Home() {
     previousResults.current = data
   }
   useEffect(() => {
-    previousResults.current = data
-  }, [data])
+    if (data?.bestMatches) {
+      previousResults.current = {
+        ...previousResults.current,
+        bestMatches: [
+          ...(previousResults.current?.bestMatches || []),
+          ...data.bestMatches,
+        ],
+      };
+    }
+  }, [data]);
 
   return (
     <div className="flex flex-col flex-1 items-center px-4 sm:px-6 md:px-8 gap-10">

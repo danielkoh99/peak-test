@@ -20,6 +20,12 @@ export function Autocomplete({
 }: AutocompleteProps) {
     const [showResults, setShowResults] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            setShowResults(false)
+            setSearchQuery('')
+        }
+    }
     useEffect(() => {
         if (searchQuery.length > 0 && data?.bestMatches && data.bestMatches.length > 0) {
             setShowResults(true)
@@ -41,13 +47,15 @@ export function Autocomplete({
 
         >
             <Input
+                onKeyDown={handleKeyDown}
                 onFocus={() => setShowResults(true)}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for symbols"
-                className="w-full px-4 py-2 rounded-lg border border-gray-300 shadow-sm 
-               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
-               transition-all duration-200"
+                className="w-full px-5 py-3 rounded-xl border border-gray-300 shadow-md 
+             bg-white text-gray-700 placeholder-gray-400 
+             focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+             transition-all duration-200"
             />
 
             {showResults && !isLoading && !error && searchQuery.length > 2 && (
