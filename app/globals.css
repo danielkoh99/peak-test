@@ -70,3 +70,10 @@ body {
     --chart-5: 340 75% 55%;
   }
 }
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for Firefox */
+.no-scrollbar {
+  scrollbar-width: none;
+}

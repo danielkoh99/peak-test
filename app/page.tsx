@@ -7,32 +7,29 @@ import useDebounce from "./hooks/useDebounce";
 import { Autocomplete } from "@/components/stock/Autocomplete";
 import PrevSearchList from "@/components/stock/PrevSearchList";
 export default function Home() {
-  const prevResultsLocalStorage: SearchTickerRes = JSON.parse(localStorage.getItem('previousResults') || '[]');
+
   const [searchQuery, setSearchQuery] = useState<string>("")
   // Use debounce to avoid making too many requests
   const debouncedSearchQuery = useDebounce<string>(searchQuery, 500);
   // Set previous results, to show user results from previous queries
-  const previousResults = useRef<SearchTickerRes | undefined>(prevResultsLocalStorage);
+  const previousResults = useRef<SearchTickerRes | undefined>(undefined);
 
   const { data, error, isLoading } = useQuery<SearchTickerRes, Error>({
     queryKey: ['searchTickers', debouncedSearchQuery],
     queryFn: () => fetchTickerSearchResults<SearchTickerRes>(searchQuery),
     enabled: !!debouncedSearchQuery && debouncedSearchQuery.length > 2,
   });
-  useEffect(() => {
-    if (!data) return
+  const handleSetDefaultPrev = (data: SearchTickerRes | undefined) => {
     previousResults.current = data
-    if (!data.Information) {
-      localStorage.setItem('previousResults', JSON.stringify(data))
-    }
-    const prevResultsLocalStorage: SearchTickerRes = JSON.parse(localStorage.getItem('previousResults') || '[]');
-    if (prevResultsLocalStorage && prevResultsLocalStorage.bestMatches && prevResultsLocalStorage.bestMatches.length > 10) {
-      localStorage.removeItem('previousResults')
-    }
+  }
+  useEffect(() => {
+    previousResults.current = data
   }, [data])
 
   return (
     <div className="flex flex-col flex-1 items-center px-4 sm:px-6 md:px-8 gap-10">
+
+      <p className="text-lg font-semibold">  Search for a stock</p>
       <Autocomplete
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
@@ -40,7 +37,7 @@ export default function Home() {
         error={error}
         isLoading={isLoading}
       />
-      <PrevSearchList data={previousResults.current?.bestMatches} />
+      <PrevSearchList setDefaultPrevResults={handleSetDefaultPrev} data={previousResults.current} />
     </div>
   );
 }

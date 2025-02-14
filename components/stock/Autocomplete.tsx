@@ -1,7 +1,7 @@
 "use client"
 import { SearchTickerRes, Ticker } from "@/app/types/types";
 import { Input } from "../ui/input";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SingleTickerItem from "./SingleTickerItem";
 
 interface AutocompleteProps {
@@ -19,19 +19,29 @@ export function Autocomplete({
     error,
 }: AutocompleteProps) {
     const [showResults, setShowResults] = useState(false);
-    const [savedItems, setSavedItems] = useState<Ticker[]>([]);
+    const containerRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
-        const items = JSON.parse(localStorage.getItem("savedItems") || "[]");
-        setSavedItems(items);
-        if (data?.Information) {
+        if (searchQuery.length > 0 && data?.bestMatches && data.bestMatches.length > 0) {
             setShowResults(true)
         }
-    }, [data]);
-
+    }, [searchQuery, setShowResults, data?.bestMatches])
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+                setShowResults(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
     return (
-        <div className="relative lg:w-1/2 w-full">
+        <div ref={containerRef} className="relative lg:w-1/2 w-full"
+
+        >
             <Input
-                onBlur={() => setShowResults(false)}
+                onFocus={() => setShowResults(true)}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for symbols"
@@ -41,8 +51,7 @@ export function Autocomplete({
             />
 
             {showResults && !isLoading && !error && searchQuery.length > 2 && (
-                <div className="absolute left-0 right-0 z-10 mt-2 w-full bg-white border border-gray-200 
-                    rounded-lg shadow-lg max-h-60 overflow-y-auto transition-all duration-200">
+                <div onBlur={() => setShowResults(false)} className="absolute left-0 right-0 z-10 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-96 overflow-y-auto transition-all duration-200 no-scrollbar">
                     {data?.Information && (
                         <div className="p-3 text-gray-500 text-center">{data?.Information}</div>
                     )}
@@ -53,11 +62,11 @@ export function Autocomplete({
                     {error && (
                         <div className="p-3 text-red-500 text-center">Error fetching results</div>
                     )}
-
+                    {data?.bestMatches?.length === 0 && (
+                        <div className="p-3 text-gray-500 text-center">No results found</div>
+                    )}
                     {data?.bestMatches?.map((match: Ticker) => (
                         <SingleTickerItem
-                            savedItems={savedItems}
-                            setSavedItems={setSavedItems}
                             key={match["1. symbol"]}
                             match={match}
                         />

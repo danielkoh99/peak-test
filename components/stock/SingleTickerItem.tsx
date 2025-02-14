@@ -1,41 +1,35 @@
 "use client";
+import { useSavedItems } from "@/app/contexts/SavedItemContext";
 import { Ticker } from "@/app/types/types";
 import { StarIcon } from "lucide-react";
-import { useEffect } from "react";
+import Link from "next/link";
 
-export default function SingleTickerItem({ match, savedItems, setSavedItems }: { match: Ticker, savedItems: Ticker[], setSavedItems: React.Dispatch<React.SetStateAction<Ticker[]>> }) {
-
-    useEffect(() => {
-        const storedItems = JSON.parse(localStorage.getItem("savedItems") || "[]");
-        setSavedItems(storedItems);
-    }, [setSavedItems]);
-
-    const isSaved = savedItems.some(item => item["1. symbol"] === match["1. symbol"]);
-    const saveItem = () => {
-        const updatedItems = isSaved
-            ? savedItems.filter((item) => item !== match)
-            : [...savedItems, match];
-
-        setSavedItems(updatedItems);
-        localStorage.setItem("savedItems", JSON.stringify(updatedItems));
-    };
-    const unsaveItem = () => {
-        const updatedItems = savedItems.filter((item) => item["1. symbol"] !== match["1. symbol"]);
-        setSavedItems(updatedItems);
-        localStorage.setItem("savedItems", JSON.stringify(updatedItems));
+export default function SingleTickerItem({ match }: { match: Ticker }) {
+    const { isSaved, unsaveItem, saveItem } = useSavedItems();
+    const saved = isSaved(match["1. symbol"])
+    const handleSaveItem = (e: React.MouseEvent) => {
+        e.stopPropagation()
+        if (saved) {
+            unsaveItem(match["1. symbol"])
+        } else {
+            saveItem(match)
+        }
     }
     return (
-        <div className="flex w-full items-center justify-between p-2 border-b">
-            <div>
-                <h3 className="font-semibold">{match["1. symbol"]}</h3>
-                <p className="text-sm text-gray-600">{match["2. name"]}</p>
-                <p className="text-sm text-gray-600">{match["8. currency"]}</p>
-            </div>
-            <StarIcon
-                onClick={isSaved ? unsaveItem : saveItem}
-                className={`w-5 h-5 cursor-pointer transition-all ${isSaved ? "fill-yellow-500 text-yellow-500" : "text-gray-400 hover:fill-yellow-500"
-                    }`}
-            />
+        <div className="flex w-full items-center justify-between p-2 border-b hover:bg-gray-100">
+            <Link href={`/stock/${match["1. symbol"]}`} className="flex w-full ">
+                <div className="flex flex-col text-start">
+                    <h3 className="font-semibold">{match["1. symbol"]}</h3>
+                    <p className="text-sm text-gray-600">{match["2. name"]}</p>
+                    <p className="text-sm text-gray-600">{match["8. currency"]}</p>
+                </div>
+            </Link>
+            <button onClick={handleSaveItem} className="ml-2 p-4">
+                <StarIcon
+                    className={`w-5 h-5 cursor-pointer transition-all ${saved ? "fill-yellow-500 text-yellow-500" : "text-gray-400 hover:fill-yellow-500"
+                        }`}
+                />
+            </button>
         </div>
     );
 }
