@@ -50,10 +50,10 @@ export default function StockList({ data }: { data: SearchTickerRes | undefined 
     return (
         <div className="flex flex-col gap-4">
             <p className="text-lg font-semibold w-full text-center">Previous search results</p>
-            <div className="flex flex-wrap gap-4 w-full justify-center max-h-72 overflow-y-auto">
+            <div className="flex flex-wrap gap-4 w-full justify-center max-h-96 overflow-y-auto">
                 {prevResults?.bestMatches?.map((stock) => (
-                    <div key={stock["1. symbol"]} className="flex flex-col items-center justify-center text-center  p-4 border rounded-lg shadow-sm bg-white hover:bg-gray-100 transition w-[180px] h-[120px]">
-                        <Link href={`/stock/${stock["1. symbol"]}`} passHref>
+                    <div key={stock["1. symbol"]} className="flex flex-col items-center text-center p-4 border rounded-lg shadow-sm bg-white hover:bg-gray-100 transition w-full md:w-[180px] h-auto">
+                        <Link href={`/stock/${stock["1. symbol"]}`} passHref className="flex flex-col gap-4 h-full">
                             <h3 className="font-semibold">{stock["1. symbol"]}</h3>
                             <p className="text-sm text-gray-600 text-center">{stock["2. name"]}</p>
                         </Link>
@@ -61,7 +61,6 @@ export default function StockList({ data }: { data: SearchTickerRes | undefined 
                     </div>
                 ))}
             </div>
-
         </div>
     );
 }
