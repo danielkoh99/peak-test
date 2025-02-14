@@ -1,7 +1,6 @@
 import { StockData, StockDetailsRes } from "@/app/types/types";
 import StockHistoryAreaChart from "@/components/stock/StockHistoryAreaChart";
 import { StockDetailsView } from "@/components/stock/StockDetails";
-import React from "react";
 type ParamsType = Promise<{ symbol: string }>;
 
 export default async function SymbolDetailsPage(props: { params: ParamsType }) {
@@ -32,16 +31,18 @@ export default async function SymbolDetailsPage(props: { params: ParamsType }) {
     return (
         <div className="flex flex-col h-full w-full items-center justify-center">
             <main className="flex flex-col items-center text-center gap-6 p-6 w-full">
-                {!symbol ? (
+                {!symbol || !symbolDetails ? (
                     <div className="text-center text-lg text-red-600">
                         No symbol found
                     </div>
                 ) :
-                    <>
-                        <StockDetailsView data={symbolDetails["Global Quote"]} />
-                        <StockHistoryAreaChart data={historicalData} />
-                    </>
+
+                    <StockDetailsView data={symbolDetails["Global Quote"]} />
+
                 }
+                {historicalData && !historicalData["Error Message"] && !historicalData["Information"] && (
+                    <StockHistoryAreaChart data={historicalData} />
+                )}
             </main>
         </div >
     );

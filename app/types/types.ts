@@ -48,6 +48,7 @@ interface StockData {
     "Meta Data": StockMetaData;
     "Monthly Time Series": Record<string, StockTimeSeriesEntry>;
     "Information"?: string
+    "Error Message"?: string
 };
 
 export type { SearchTickerRes, Ticker, StockDetails, StockData, StockDetailsRes }
