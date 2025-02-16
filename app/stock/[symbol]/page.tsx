@@ -11,11 +11,14 @@ async function fetchStockData<T>(url: string): Promise<T | { error: string }> {
         if (!response.ok) {
             throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
         }
-        const result = await response.json();
-        return result as T;
-    } catch (error: any) {
-        console.error("Fetch error:", error);
-        return { error: error.message };
+        const result = (await response.json()) as T;
+        return result;
+    } catch (error: unknown) {
+        let errorMessage = "An unknown error occurred";
+        if (error instanceof Error) {
+            errorMessage = error.message;
+        }
+        return { error: errorMessage };
     }
 }
 
