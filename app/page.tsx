@@ -4,7 +4,7 @@ import { fetchTickerSearchResults } from "./api/fetchStocksApi";
 import { useState } from "react";
 import { SearchTickerRes } from "./types/types";
 import useDebounce from "./hooks/useDebounce";
-import { Autocomplete } from "@/components/stock/Autocomplete";
+import Autocomplete from "@/components/stock/Autocomplete";
 import PrevSearchList from "@/components/stock/PrevSearchList";
 export default function Home() {
 
