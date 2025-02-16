@@ -22,8 +22,8 @@ async function fetchStockData<T>(url: string): Promise<T | { error: string }> {
     }
 }
 
-export default async function SymbolDetailsPage({ params }: { params: ParamsType }) {
-    const { symbol } = (await params);
+export default async function SymbolDetailsPage(props: { params: ParamsType }) {
+    const { symbol } = (await props.params)
 
     if (!symbol) {
         return <GenericError>Invalid stock symbol.</GenericError>;
